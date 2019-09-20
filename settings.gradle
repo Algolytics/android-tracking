@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':algolytics_tracking_android'
 rootProject.name='Tracking App'
