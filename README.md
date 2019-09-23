@@ -2,22 +2,22 @@
 Android tracking application to track user behaviour while filling any type of forms.
 
 # 1. How to Install
-###### 1.1. Add following dependecies in buildscript:
+#### 1.1. Add following dependecies in buildscript:
 ```groovy
 classpath 'org.aspectj:aspectjtools:1.9.4'
 classpath("com.archinamon:android-gradle-aspectj:3.3.12")
 ```
-###### 1.2. Add maven repository in allprojects:
+#### 1.2. Add maven repository in allprojects:
 ```groovy
 maven { url 'https://jitpack.io' }
 ```
 
-###### 1.3. Add plugin in your app:
+#### 1.3. Add plugin in your app:
 ```groovy
 apply plugin: 'com.archinamon.aspectj'
 ```
 
-###### 1.4. Enbale multiDex
+#### 1.4. Enbale multiDex
 
  Add library to app:
 ```groovy
@@ -30,7 +30,7 @@ aspectj {
 }
 ```
 
-###### 1.5. In your main class:
+#### 1.5. In your main class:
 Create an object of AspectConfig and enable its options:
  
  **Kotlin**
@@ -100,7 +100,7 @@ new Tracker.Builder(
 - `batteryPoolingTimeMillis( timeInMillis )` - changing frequency of getting information about battery (default is 1/30 000 millis). It takes time in millis as an argument.
 
 
-###### 1.6. Enable following permission in your app:
+#### 1.6. Enable following permission in your app:
 
 ```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -112,7 +112,7 @@ new Tracker.Builder(
 <uses-permission android:name="android.permission.READ_SMS" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
-###### 1.7. If you want to track the inputs, you have to add listners to them:
+#### 1.7. If you want to track the inputs, you have to add listners to them:
 ```kotlin
 inputName.addTextChangedListener(object: DefaultTextWatcher(editText){})
 ```
