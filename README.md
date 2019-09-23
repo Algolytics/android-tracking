@@ -49,9 +49,9 @@ AspectConfig aspectConfig = new AspectConfig()
             .enableActivities()
 ```
 **Available options:**
-- `enableClicks()` - enabling click aspects
-- `enableInputs()` - enabling text aspects
-- `enableActivities()` - enabling activity aspects
+- `enableClicks()` - _enabling click aspects_
+- `enableInputs()` - _enabling text aspects_
+- `enableActivities()` - _enabling activity aspects_
 
 Create an object of Tracker and enable its options:
 
@@ -83,21 +83,21 @@ new Tracker.Builder(
 ```
 
 **Available options:**
-- `enableConnectivity()` - tracking Internet connectivity information
-- `enableAccelerometer` - tracking information about phone rotations
-- `enableLocation()` - tracking information about location
-- `enableBattery()` - tracking information about battery
-- `enableContacts()` - tracking amount of contacts
-- `enablePhotos()` - tracking amount of photos
-- `enableCalendar()` - tracking events from calendar
-- `enableMessages()` - tracking amount of messages
-- `enableApplications()` - tracking amount and names of installed applications
-- `aspectConfig( acpectConfig )` - tracking information about aspects (text inputs, changing activities, button clicks). It takes previously created AspectConfig object as an argument.
-- `apiPoolingTimeMillis( timeInMillis )` - changing frequency of sending information to the server (default is 1/30 000 millis). It takes time in millis as an argument.
-- `connectivityPoolingTimeMillis( timeInMillis )` - changing frequency of getting information about connectivity (default is 1/30 000 millis). It takes time in millis as an argument.
-- `accelerometerPoolingTimeMillis( timeInMillis )` - changing frequency of getting information about accelerometer (default is 1/30 000 millis). It takes time in millis as an argument.
-- `locationPoolingTimeMillis( timeInMillis )` - changing frequency of getting information about location (default is 1/30 000 millis). It takes time in millis as an argument.
-- `batteryPoolingTimeMillis( timeInMillis )` - changing frequency of getting information about battery (default is 1/30 000 millis). It takes time in millis as an argument.
+- `enableConnectivity()` - _tracking Internet connectivity information_
+- `enableAccelerometer` - _tracking information about phone rotations_
+- `enableLocation()` - _tracking information about location_
+- `enableBattery()` - _tracking information about battery_
+- `enableContacts()` - _tracking amount of contacts_
+- `enablePhotos()` - _tracking amount of photos_
+- `enableCalendar()` - _tracking events from calendar_
+- `enableMessages()` - _tracking amount of messages_
+- `enableApplications()` - _tracking amount and names of installed applicati_
+- `aspectConfig( acpectConfig )` - _tracking information about aspects (text inputs, changing activities, button clicks). It takes previously created AspectConfig object as an argument._
+- `apiPoolingTimeMillis( timeInMillis )` - _changing frequency of sending information to the server (default is 1/30 000 millis). It takes time in millis as an argument._
+- `connectivityPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about connectivity (default is 1/30 000 millis). It takes time in millis as an argument._
+- `accelerometerPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about accelerometer (default is 1/30 000 millis). It takes time in millis as an argument._
+- `locationPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about location (default is 1/30 000 millis). It takes time in millis as an argument._
+- `batteryPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about battery (default is 1/30 000 millis). It takes time in millis as an argument._
 
 
 #### 1.6. Enable following permission in your app:
