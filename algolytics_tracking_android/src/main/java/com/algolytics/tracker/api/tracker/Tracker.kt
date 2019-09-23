@@ -1,6 +1,7 @@
 package com.algolytics.tracker.api.tracker
 
 import android.app.Application
+import com.algolytics.tracker.api.aspect.model.AspectConfig
 import com.algolytics.tracker.api.data.amount.ContactsAmount
 import com.algolytics.tracker.api.data.amount.NumberOfSMS
 import com.algolytics.tracker.api.data.amount.PhotosAmount
@@ -20,6 +21,7 @@ class Tracker(
 
     companion object {
         lateinit var application: Application
+        lateinit var aspectConfig: AspectConfig
 
     }
 
@@ -27,29 +29,100 @@ class Tracker(
         val application: Application,
         val apiKey: String,
         val url: String,
-        val scenarioName: String,
-
-        val apiPoolingTimeMillis: Long = 30000,
-        val connectivityPoolingTimeMillis: Long = 30000,
-        val accelerometerPoolingTimeMillis: Long = 30000,
-        val locationPoolingTimeMillis: Long = 30000,
-        val batteryPoolingTimeMillis: Long = 30000
+        val scenarioName: String
     ) {
+        private var aspectConfig: AspectConfig = AspectConfig()
+        private var connectivity: Boolean = false
+        private var accelerometer: Boolean = false
+        private var location: Boolean = false
+        private var battery: Boolean = false
+        private var contacts: Boolean = false
+        private var photos: Boolean = false
+        private var calendar: Boolean = false
+        private var messages: Boolean = false
+        private var applications: Boolean = false
+        private var apiPoolingTimeMillis: Long = 30000
+        private var connectivityPoolingTimeMillis: Long = 30000
+        private var accelerometerPoolingTimeMillis: Long = 30000
+        private var locationPoolingTimeMillis: Long = 30000
+        private var batteryPoolingTimeMillis: Long = 30000
+
+        fun enableConnectivity() = apply { this.connectivity = true }
+        fun enableAccelerometer() = apply { this.accelerometer = true }
+        fun enableLocation() = apply { this.location = true }
+        fun enableBattery() = apply { this.battery = true }
+        fun enableContacts() = apply { this.contacts = true }
+        fun enablePhotos() = apply { this.photos = true }
+        fun enableCalendar() = apply { this.calendar = true }
+        fun enableMessages() = apply { this.messages = true }
+        fun enableApplications() = apply { this.applications = true }
+
+        fun aspectConfig(aspectConfig: AspectConfig) = apply { this.aspectConfig = aspectConfig }
+
+        fun apiPoolingTimeMillis(time: Long) = apply {
+            if (time < 1000) return@apply
+            else this.apiPoolingTimeMillis = time
+        }
+
+        fun connectivityPoolingTimeMillis(time: Long) = apply {
+            if (time < 1000) return@apply
+            else this.connectivityPoolingTimeMillis = time
+        }
+
+        fun accelerometerPoolingTimeMillis(time: Long) = apply {
+            if (time < 1000) return@apply
+            else this.accelerometerPoolingTimeMillis = time
+        }
+
+        fun locationPoolingTimeMillis(time: Long) = apply {
+            if (time < 1000) return@apply
+            else this.locationPoolingTimeMillis = time
+        }
+
+        fun batteryPoolingTimeMillis(time: Long) = apply {
+            if (time < 1000) return@apply
+            else this.batteryPoolingTimeMillis = time
+        }
+
 
         fun build(): Tracker {
             Companion.application = application
+            Companion.aspectConfig = aspectConfig
             ApiTracker.create(apiKey, url, scenarioName, apiPoolingTimeMillis).start()
 
-            ConnectivityListener(application.applicationContext, connectivityPoolingTimeMillis).start()
-            AccelerometerListener(application.applicationContext, accelerometerPoolingTimeMillis).start()
-            LocationListener(application.applicationContext, locationPoolingTimeMillis)
-            BatteryListener(application.applicationContext, batteryPoolingTimeMillis)
-
-            ContactsAmount.getContactsList(application.applicationContext)
-            PhotosAmount.getNumberOfPhotos(application)
-            EventsList.getEvents(application)
-            NumberOfSMS.getSMS(application)
-            ApplicationsList.getInstalledApps(application)
+            if (connectivity) {
+                ConnectivityListener(
+                    application.applicationContext,
+                    connectivityPoolingTimeMillis
+                ).start()
+            }
+            if (accelerometer) {
+                AccelerometerListener(
+                    application.applicationContext,
+                    accelerometerPoolingTimeMillis
+                ).start()
+            }
+            if (location) {
+                LocationListener(application.applicationContext, locationPoolingTimeMillis)
+            }
+            if (battery) {
+                BatteryListener(application.applicationContext, batteryPoolingTimeMillis)
+            }
+            if (contacts) {
+                ContactsAmount.getContactsList(application.applicationContext)
+            }
+            if (photos) {
+                PhotosAmount.getNumberOfPhotos(application)
+            }
+            if (calendar) {
+                EventsList.getEvents(application)
+            }
+            if (messages) {
+                NumberOfSMS.getSMS(application)
+            }
+            if (applications) {
+                ApplicationsList.getInstalledApps(application)
+            }
 
             return Tracker(apiKey, url, scenarioName)
         }

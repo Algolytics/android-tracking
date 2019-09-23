@@ -2,6 +2,10 @@ package com.algolytics.tracker.api.aspect
 
 import android.view.View
 import android.widget.*
+import com.algolytics.tracker.api.aspect.model.ClickEvent
+import com.algolytics.tracker.api.model.Event
+import com.algolytics.tracker.api.net.ApiTracker
+import com.algolytics.tracker.api.tracker.Tracker
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Before
 
@@ -11,19 +15,16 @@ class ClickAspect {
 
     @Before("execution(* android.view.View.OnClickListener.onClick(android.view.View)) && args(view)")
     fun trackClick(view: View?) {
-        Toast.makeText(view!!.context, "trackClick", Toast.LENGTH_SHORT).show();
-        onClickOrTouchInteracted(view, EVENT_NAME)
+        if (!Tracker.aspectConfig.clicks) {
+            return
+        }
+        view?.run { onClickOrTouchInteracted(view, EVENT_NAME) }
     }
 
-    @Before("execution(* android.view.View.OnLongClickListener.onLongClick(android.view.View)) && args(view)")
-    fun trackLongClick(view: View?) {
-        Toast.makeText(view!!.context, "trackLongClick", Toast.LENGTH_SHORT).show();
 
-    }
 
     companion object {
         private val EVENT_NAME = "click"
-        private val LABEL_INTERACTION_LONG_CLICK = "longClick"
     }
 
 
@@ -47,6 +48,8 @@ class ClickAspect {
 
             else -> mapOf()
         }
+
+        ApiTracker.getInstance().addToList(Event(ClickEvent(id, map), labelInteraction))
     }
 
 }
