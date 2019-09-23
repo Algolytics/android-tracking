@@ -21,12 +21,12 @@ apply plugin: 'com.archinamon.aspectj'
 
  Add library to app:
 ```groovy
-implementation 'com.github.Algolytics:android-tracking:0.0.1'
+implementation 'com.github.Algolytics:android-tracking:0.0.2'
 ```
  Allow aspectj from library:
 ```groovy
 aspectj {
-    includeAspectsFromJar 'com.github.Algolytics:android-tracking:0.0.1'
+    includeAspectsFromJar 'com.github.Algolytics:android-tracking:0.0.2'
 }
 ```
 
