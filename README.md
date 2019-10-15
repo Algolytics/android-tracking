@@ -34,12 +34,6 @@ aspectj {
 #### 1.6. In your main class:
 Create an object of AspectConfig and enable its options:
 
-#### 1.6. Set version of build:gradle:
-Maximal version that is compatible with android-tracker is 3.4.2
-```groovy
- classpath 'com.android.tools.build:gradle:3.4.2'
- ```
-
 
  
  **Kotlin**
@@ -125,6 +119,12 @@ new Tracker.Builder(
 ```kotlin
 inputName.addTextChangedListener(object: DefaultTextWatcher(editText){})
 ```
+
+#### 1.8. If needed, change version of build:gradle:
+Maximal version that is compatible with android-tracker is 3.4.2
+```groovy
+ classpath 'com.android.tools.build:gradle:3.4.2'
+ ```
 
 # 2. What Do We Track:
 - amount of contacts + date of last one
