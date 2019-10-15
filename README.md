@@ -19,6 +19,7 @@ apply plugin: 'com.archinamon.aspectj'
 
 #### 1.4. Enbale multiDex
 
+#### 1.5. Add following libraries
  Add library to app:
 ```groovy
 implementation 'com.github.Algolytics:android-tracking:0.0.2'
@@ -30,8 +31,16 @@ aspectj {
 }
 ```
 
-#### 1.5. In your main class:
+#### 1.6. In your main class:
 Create an object of AspectConfig and enable its options:
+
+#### 1.6. Set version of build:gradle:
+Maximal version that is compatible with android-tracker is 3.4.2
+```groovy
+ classpath 'com.android.tools.build:gradle:3.4.2'
+ ```
+
+
  
  **Kotlin**
 ```kotlin
