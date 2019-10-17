@@ -22,12 +22,12 @@ apply plugin: 'com.archinamon.aspectj'
 #### 1.5. Add following libraries
  Add library to app:
 ```groovy
-implementation 'com.github.Algolytics:android-tracking:0.0.2'
+implementation 'com.github.Algolytics:android-tracking:%current_version%'
 ```
  Allow aspectj from library:
 ```groovy
 aspectj {
-    includeAspectsFromJar 'com.github.Algolytics:android-tracking:0.0.2'
+    includeAspectsFromJar 'com.github.Algolytics:android-tracking:%current_version%'
 }
 ```
 
@@ -90,17 +90,19 @@ new Tracker.Builder(
 - `enableAccelerometer` - _tracking information about phone rotations_
 - `enableLocation()` - _tracking information about location_
 - `enableBattery()` - _tracking information about battery_
+- `enableWifi()` - _tracking information about nearby wifi connections_
 - `enableContacts()` - _tracking amount of contacts_
 - `enablePhotos()` - _tracking amount of photos_
 - `enableCalendar()` - _tracking events from calendar_
 - `enableMessages()` - _tracking amount of messages_
-- `enableApplications()` - _tracking amount and names of installed applicati_
-- `aspectConfig( acpectConfig )` - _tracking information about aspects (text inputs, changing activities, button clicks). It takes previously created AspectConfig object as an argument._
+- `enableApplications()` - _tracking amount and names of installed application_
+- `aspectConfig( aspectConfig )` - _tracking information about aspects (text inputs, changing activities, button clicks). It takes previously created AspectConfig object as an argument._
 - `apiPoolingTimeMillis( timeInMillis )` - _changing frequency of sending information to the server (default is 1/30 000 millis). It takes time in millis as an argument._
 - `connectivityPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about connectivity (default is 1/30 000 millis). It takes time in millis as an argument._
 - `accelerometerPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about accelerometer (default is 1/30 000 millis). It takes time in millis as an argument._
 - `locationPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about location (default is 1/30 000 millis). It takes time in millis as an argument._
 - `batteryPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about battery (default is 1/30 000 millis). It takes time in millis as an argument._
+- `wifiPoolingTimeMillis( timeInMillis )` - _changing frequency of getting information about nearby wifi connections (default is 1/30 000 millis). It takes time in millis as an argument._
 
 
 #### 1.6. Enable following permission in your app:
@@ -114,6 +116,8 @@ new Tracker.Builder(
 <uses-permission android:name="android.permission.READ_CALENDAR" />
 <uses-permission android:name="android.permission.READ_SMS" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 ```
 #### 1.7. If you want to track the inputs, you have to add listners to them:
 ```kotlin
@@ -135,7 +139,8 @@ Maximal version that is compatible with android-tracker is 3.4.2
 - accelerometer registers
 - location registers
 - connectivity information
-- bettery information
+- battery information
+- nearby wifi networks
 - changed activities
 - clicks events
 - selected inputs
