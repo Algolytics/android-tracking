@@ -12,6 +12,8 @@ import android.os.HandlerThread
 import androidx.core.content.ContextCompat
 import com.algolytics.tracker.api.model.Event
 import com.algolytics.tracker.api.net.ApiTracker
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 
 class LocationListener(private var context: Context, private val delay: Long) {
@@ -19,9 +21,7 @@ class LocationListener(private var context: Context, private val delay: Long) {
     private var handler: Handler? = null
     private var handlerThread: HandlerThread? = null
 
-    private var mCurrentLocation: Location? = null
-
-    private var lm: LocationManager? = null
+    private var fusedLocationClient: FusedLocationProviderClient? = null
 
     data class Position(val latitude: String, val longitude: String)
 
@@ -33,24 +33,7 @@ class LocationListener(private var context: Context, private val delay: Long) {
             )
             == PackageManager.PERMISSION_GRANTED
         ) {
-            lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if (lm?.isProviderEnabled(LocationManager.GPS_PROVIDER) == true) {
-                lm?.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    1000,
-                    1.0f,
-                    GetLastLocation()
-                )
-
-            }
-            if (lm?.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true) {
-                lm?.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    1000,
-                    1.0f,
-                    GetLastLocation()
-                )
-            }
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
             this.handlerThread = HandlerThread(LocationListener::class.java.simpleName)
             this.handlerThread?.start()
@@ -62,32 +45,15 @@ class LocationListener(private var context: Context, private val delay: Long) {
     fun gotLocation(location: Location?) {
         ApiTracker.getInstance().addToList(
             Event(
-                mapOf(
-                    "Position" to
-                            Position(
-                                location?.latitude.toString(),
-                                location?.longitude.toString()
-                            )
+                Position(
+                    location?.latitude.toString(),
+                    location?.longitude.toString()
                 ), "POSITION"
             )
         )
     }
 
-    internal inner class GetLastLocation : Runnable, LocationListener {
-
-        override fun onLocationChanged(location: Location) {
-            mCurrentLocation = location
-        }
-
-        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-        }
-
-        override fun onProviderEnabled(provider: String?) {
-        }
-
-        override fun onProviderDisabled(provider: String?) {
-        }
-
+    internal inner class GetLastLocation : Runnable {
         override fun run() {
             if (ContextCompat.checkSelfPermission(
                     context,
@@ -101,7 +67,11 @@ class LocationListener(private var context: Context, private val delay: Long) {
             ) {
                 return
             } else {
-                gotLocation(mCurrentLocation)
+                fusedLocationClient?.lastLocation
+                    ?.addOnSuccessListener { location: Location? ->
+                        gotLocation(location)
+                    }
+
                 handler?.postDelayed(this, delay)
             }
         }

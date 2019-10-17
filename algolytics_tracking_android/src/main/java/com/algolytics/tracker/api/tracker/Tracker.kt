@@ -7,10 +7,7 @@ import com.algolytics.tracker.api.data.amount.NumberOfSMS
 import com.algolytics.tracker.api.data.amount.PhotosAmount
 import com.algolytics.tracker.api.data.list.ApplicationsList
 import com.algolytics.tracker.api.data.list.EventsList
-import com.algolytics.tracker.api.data.listener.AccelerometerListener
-import com.algolytics.tracker.api.data.listener.BatteryListener
-import com.algolytics.tracker.api.data.listener.ConnectivityListener
-import com.algolytics.tracker.api.data.listener.LocationListener
+import com.algolytics.tracker.api.data.listener.*
 import com.algolytics.tracker.api.net.ApiTracker
 
 class Tracker(
@@ -36,6 +33,7 @@ class Tracker(
         private var accelerometer: Boolean = false
         private var location: Boolean = false
         private var battery: Boolean = false
+        private var wifi: Boolean = false
         private var contacts: Boolean = false
         private var photos: Boolean = false
         private var calendar: Boolean = false
@@ -46,11 +44,14 @@ class Tracker(
         private var accelerometerPoolingTimeMillis: Long = 30000
         private var locationPoolingTimeMillis: Long = 30000
         private var batteryPoolingTimeMillis: Long = 30000
+        private var wifiPoolingTimeMillis: Long = 30000
+
 
         fun enableConnectivity() = apply { this.connectivity = true }
         fun enableAccelerometer() = apply { this.accelerometer = true }
         fun enableLocation() = apply { this.location = true }
         fun enableBattery() = apply { this.battery = true }
+        fun enableWifi() = apply { this.wifi = true }
         fun enableContacts() = apply { this.contacts = true }
         fun enablePhotos() = apply { this.photos = true }
         fun enableCalendar() = apply { this.calendar = true }
@@ -84,6 +85,11 @@ class Tracker(
             else this.batteryPoolingTimeMillis = time
         }
 
+        fun wifiPoolingTimeMillis(time: Long) = apply {
+            if (time < 1000) return@apply
+            else this.wifiPoolingTimeMillis = time
+        }
+
 
         fun build(): Tracker {
             Companion.application = application
@@ -107,6 +113,12 @@ class Tracker(
             }
             if (battery) {
                 BatteryListener(application.applicationContext, batteryPoolingTimeMillis)
+            }
+            if (wifi) {
+                WifiListener(
+                    application.applicationContext,
+                    wifiPoolingTimeMillis
+                ).start()
             }
             if (contacts) {
                 ContactsAmount.getContactsList(application.applicationContext)
