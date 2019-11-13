@@ -5,7 +5,7 @@ Android tracking application to track user behaviour while filling any type of f
 #### 1.1. Add following dependecies in buildscript:
 ```groovy
 classpath 'org.aspectj:aspectjtools:1.9.4'
-classpath("com.archinamon:android-gradle-aspectj:3.3.12")
+classpath("com.archinamon:android-gradle-aspectj:3.4.3")
 ```
 #### 1.2. Add maven repository in allprojects:
 ```groovy
