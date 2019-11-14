@@ -119,9 +119,11 @@ new Tracker.Builder(
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 ```
-#### 1.7. If you want to track the inputs, you have to add listners to them:
+#### 1.7. If you want to track inputs and spinners, you have to add listners to them:
 ```kotlin
 inputName.addTextChangedListener(object: DefaultTextWatcher(editText){})
+spinnerName.onItemSelectedListener = DefaultSpinnerListener(spinnerName, "spinner_tracking_name")
+
 ```
 
 #### 1.8. If needed, change version of build:gradle:
