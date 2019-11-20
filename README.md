@@ -129,7 +129,7 @@ spinnerName.onItemSelectedListener = DefaultSpinnerListener(spinnerName, "spinne
 #### 1.8. If needed, change version of build:gradle:
 Maximal version that is compatible with android-tracker is 3.4.2
 ```groovy
- classpath 'com.android.tools.build:gradle:3.4.2'
+ classpath 'com.android.tools.build:gradle:3.5.2'
  ```
 
 # 2. What Do We Track:
