@@ -94,7 +94,6 @@ new Tracker.Builder(
 - `enableContacts()` - _tracking amount of contacts_
 - `enablePhotos()` - _tracking amount of photos_
 - `enableCalendar()` - _tracking events from calendar_
-- `enableMessages()` - _tracking amount of messages_
 - `enableApplications()` - _tracking amount and names of installed application_
 - `aspectConfig( aspectConfig )` - _tracking information about aspects (text inputs, changing activities, button clicks). It takes previously created AspectConfig object as an argument._
 - `apiPoolingTimeMillis( timeInMillis )` - _changing frequency of sending information to the server (default is 1/30 000 millis). It takes time in millis as an argument._
@@ -114,7 +113,6 @@ new Tracker.Builder(
 <uses-permission android:name="android.permission.READ_CONTACTS" />
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.READ_CALENDAR" />
-<uses-permission android:name="android.permission.READ_SMS" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -134,7 +132,6 @@ Maximal version that is compatible with android-tracker is 3.5.2
 
 # 2. What Do We Track:
 - amount of contacts + date of last one
-- amount of messages + date of last one
 - amount of photos
 - list of applications
 - list of events from calendar
