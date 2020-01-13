@@ -37,7 +37,6 @@ class Tracker(
         private var contacts: Boolean = false
         private var photos: Boolean = false
         private var calendar: Boolean = false
-        private var messages: Boolean = false
         private var applications: Boolean = false
         private var apiPoolingTimeMillis: Long = 30000
         private var connectivityPoolingTimeMillis: Long = 30000
@@ -55,7 +54,6 @@ class Tracker(
         fun enableContacts() = apply { this.contacts = true }
         fun enablePhotos() = apply { this.photos = true }
         fun enableCalendar() = apply { this.calendar = true }
-        fun enableMessages() = apply { this.messages = true }
         fun enableApplications() = apply { this.applications = true }
 
         fun aspectConfig(aspectConfig: AspectConfig) = apply { this.aspectConfig = aspectConfig }
@@ -129,9 +127,7 @@ class Tracker(
             if (calendar) {
                 EventsList.getEvents(application)
             }
-            if (messages) {
-                NumberOfSMS.getSMS(application)
-            }
+
             if (applications) {
                 ApplicationsList.getInstalledApps(application)
             }
